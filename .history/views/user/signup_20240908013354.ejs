@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickChat Signup</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .signup-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 400px;
+        width: 100%;
+      }
+
+      .signup-container h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: #343a40;
+        text-align: center;
+      }
+
+      .form-floating {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .password-eye {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+        color: #6c757d;
+      }
+
+      .password-eye:hover {
+        color: #25d366;
+      }
+
+      .form-control {
+        padding-right: 40px;
+      }
+
+      .btn-primary {
+        background-color: #25d366;
+        border-color: #25d366;
+      }
+
+      .btn-primary:hover {
+        background-color: #1ebc59;
+        border-color: #1ebc59;
+      }
+
+      .btn-google {
+        background-color: #f9f9fa;
+        border-color: #f7f7f8;
+        color: #0c0c0c;
+      }
+
+      .btn-google:hover {
+        background-color: #e2e2e3;
+        border-color: #e2e3e4;
+      }
+
+      .signup-footer {
+        text-align: center;
+        margin-top: 1rem;
+        color: #6c757d;
+      }
+
+      .signup-footer a {
+        color: #25d366;
+        text-decoration: none;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 1rem 0;
+        position: relative;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        background-color: #dee2e6;
+        height: 1px;
+        width: 40%;
+        position: absolute;
+        top: 50%;
+      }
+
+      .divider::before {
+        left: 0;
+      }
+
+      .divider::after {
+        right: 0;
+      }
+
+      .divider span {
+        padding: 0 1rem;
+        background-color: #fff;
+        color: #6c757d;
+      }
+
+      .form-control:focus {
+        border-color: #25d366;
+        box-shadow: 0 0 0 0.25rem rgba(37, 211, 102, 0.25);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="signup-container">
+      <h2>QuickChat Signup</h2>
+      <form id="signupForm">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="floatingName"
+            placeholder="Your Name"
+            required
+          />
+          <label for="floatingName">Name</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            id="floatingEmail"
+            placeholder="name@example.com"
+            required
+          />
+          <label for="floatingEmail">Email address</label>
+        </div>
+        <div class="form-floating password-wrapper">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+            required
+          />
+          <label for="floatingPassword">Password</label>
+          <i class="fas fa-eye password-eye" id="togglePassword"></i>
+        </div>
+        <div class="form-floating password-wrapper">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingConfirmPassword"
+            placeholder="Confirm Password"
+            required
+          />
+          <label for="floatingConfirmPassword">Confirm Password</label>
+          <i class="fas fa-eye password-eye" id="toggleConfirmPassword"></i>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        <div class="divider">
+          <span>or</span>
+        </div>
+        <button type="button" class="btn btn-google w-100">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+            width="20px"
+            height="20px"
+          >
+            <path
+              fill="#4285F4"
+              d="M24 9.5c3.89 0 6.94 1.62 9.03 4.18l6.73-6.73C34.9 3.41 29.94 1.5 24 1.5c-8.58 0-15.8 5.1-18.85 12.55L11.8 20C13.37 14.41 18.16 9.5 24 9.5z"
+            />
+            <path
+              fill="#34A853"
+              d="M46.8 24.28C46.8 23.17 46.72 22.1 46.55 21.08H24v6.75h12.8c-.62 3.14-2.39 5.78-4.89 7.52l7.62 5.91C43.68 37.17 46.8 31.17 46.8 24.28z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M11.8 28C10.6 24.76 10.6 21.25 11.8 18l-7.64-5.95C1.12 16.35 0 20.06 0 24s1.12 7.65 4.16 11.95L11.8 28z"
+            />
+            <path
+              fill="#EA4335"
+              d="M24 46.5c5.94 0 10.9-1.94 14.5-5.27L30.88 35C29 36.15 26.7 36.75 24 36.75c-5.84 0-10.63-4.91-12.2-10.5L4.15 35.45C7.2 41.9 14.42 46.5 24 46.5z"
+            />
+          </svg>
+          Sign up with Google
+        </button>
+        <div class="signup-footer mt-3">
+          <p>Already have an account? <a href="/user/login">Login</a></p>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+      let form = document.getElementById("signupForm");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("floatingName").value;
+        const email = document.getElementById("floatingEmail").value;
+        const password = document.getElementById("floatingPassword").value;
+        const confirmPassword = document.getElementById(
+          "floatingConfirmPassword"
+        ).value;
+
+        const formData = {
+          name: name,
+          email: email,
+          password: password,
+        };
+
+        fetch("userSignupInput", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }).then(Response => Response.si)
+      });
+
+      // password eye
+      function togglePasswordVisibility(toggleButtonId, passwordFieldId) {
+        const toggleButton = document.getElementById(toggleButtonId);
+        const passwordField = document.getElementById(passwordFieldId);
+
+        toggleButton.addEventListener("click", function () {
+          const type =
+            passwordField.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordField.setAttribute("type", type);
+
+          this.classList.toggle("fa-eye");
+          this.classList.toggle("fa-eye-slash");
+        });
+      }
+
+      togglePasswordVisibility("togglePassword", "floatingPassword");
+      togglePasswordVisibility(
+        "toggleConfirmPassword",
+        "floatingConfirmPassword"
+      );
+    </script>
+  </body>
+</html>

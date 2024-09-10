@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickChat Signup</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 0;
+      }
+
+      .signup-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 400px;
+        width: 100%;
+      }
+
+      .signup-container h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: #343a40;
+        text-align: center;
+      }
+
+      .form-floating {
+        margin-bottom: 1rem;
+        position: relative;
+      }
+
+      .form-floating .eye-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #6c757d;
+      }
+
+      .btn-primary {
+        background-color: #25d366;
+        border-color: #25d366;
+      }
+
+      .btn-primary:hover {
+        background-color: #1ebc59;
+        border-color: #1ebc59;
+      }
+
+      .btn-google {
+        background-color: #f9f9fa;
+        border-color: #f7f7f8;
+        color: #0c0c0c;
+      }
+
+      .btn-google:hover {
+        background-color: #e2e2e3;
+        border-color: #e2e3e4;
+      }
+
+      .signup-footer {
+        text-align: center;
+        margin-top: 1rem;
+        color: #6c757d;
+      }
+
+      .signup-footer a {
+        color: #25d366;
+        text-decoration: none;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 1rem 0;
+        position: relative;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        background-color: #dee2e6;
+        height: 1px;
+        width: 40%;
+        position: absolute;
+        top: 50%;
+      }
+
+      .divider::before {
+        left: 0;
+      }
+
+      .divider::after {
+        right: 0;
+      }
+
+      .divider span {
+        padding: 0 1rem;
+        background-color: #fff;
+        color: #6c757d;
+      }
+
+      /* password meter */
+      .strength-meter {
+        height: 10px;
+        width: 100%;
+        background-color: #ddd;
+        margin-top: 10px;
+        border-radius: 5px;
+      }
+
+      .strength-meter div {
+        height: 100%;
+        border-radius: 5px;
+      }
+
+      .strength-meter .weak {
+        width: 25%;
+        background-color: #ff4d4d;
+      }
+
+      .strength-meter .medium {
+        width: 50%;
+        background-color: #ffcc00;
+      }
+
+      .strength-meter .strong {
+        width: 75%;
+        background-color: #66cc66;
+      }
+
+      .strength-meter .very-strong {
+        width: 100%;
+        background-color: #00cc00;
+      }
+
+      /* animated success msg */
+      .animated-message {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #0eb71c;
+        color: #ffffff;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 1.5em;
+        z-index: 9999;
+      }
+
+      /* Tick mark animation */
+      .animated-tick {
+        margin: 0 auto;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #0eb71c;
+        position: relative;
+        animation: tickAppear 0.5s ease-in-out forwards;
+      }
+
+      .animated-tick::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 15px;
+        height: 30px;
+        border-right: 5px solid #fff;
+        border-bottom: 5px solid #fff;
+        transform: translate(-50%, -50%) rotate(45deg);
+        transform-origin: center;
+      }
+
+      @keyframes tickAppear {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+      <div class="container">
+        <a class="navbar-brand" href="/user/">QuickChat</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/user/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="animated-message" id="animatedMessage">
+      <div class="animated-tick"></div>
+      <div>Signup successful! Redirecting to home...</div>
+    </div>
+    <div class="signup-container">
+      <h2>QuickChat Signup</h2>
+      <form action="/user/signup" method="post">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="userName"
+            name="userName"
+            placeholder="Your Name"
+          />
+          <label for="userName">Name</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            id="floatingEmail"
+            name="email"
+            placeholder="name@example.com"
+          />
+          <label for="floatingEmail">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingPassword"
+            name="password"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Password</label>
+          <button
+            type="button"
+            class="eye-btn"
+            onclick="togglePassword('floatingPassword')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-eye"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
+              />
+              <path d="M8 5a3 3 0 0 0 0 6 3 3 0 0 0 0-6z" />
+            </svg>
+          </button>
+          <div class="strength-meter" id="strengthMeter">
+            <div></div>
+          </div>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingConfirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+          />
+          <label for="floatingConfirmPassword">Confirm Password</label>
+          <button
+            type="button"
+            class="eye-btn"
+            onclick="togglePassword('floatingConfirmPassword')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-eye"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
+              />
+              <path d="M8 5a3 3 0 0 0 0 6 3 3 0 0 0 0-6z" />
+            </svg>
+          </button>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+
+        <div class="mt-3">
+          <% if (messages.error) { %>
+          <div
+            id="error-message"
+            class="alert alert-danger text-center"
+            role="alert"
+            style="background-color: #f24747; color: #ffffff"
+          >
+            <%= messages.error %>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="divider">
+          <span>or</span>
+        </div>
+        <button type="button" class="btn btn-google w-100">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+            width="20px"
+            height="20px"
+          >
+            <path
+              fill="#4285F4"
+              d="M24 9.5c3.89 0 6.94 1.62 9.03 4.18l6.73-6.73C34.9 3.41 29.94 1.5 24 1.5c-8.58 0-15.8 5.1-18.85 12.55L11.8 20C13.37 14.41 18.16 9.5 24 9.5z"
+            />
+            <path
+              fill="#34A853"
+              d="M46.8 24.28C46.8 23.17 46.72 22.1 46.55 21.08H24v6.75h12.8c-.62 3.14-2.39 5.78-4.89 7.52l7.62 5.91C43.68 37.17 46.8 31.17 46.8 24.28z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M11.8 28C10.6 24.76 10.6 21.25 11.8 18l-7.64-5.95C1.12 16.35 0 20.06 0 24s1.12 7.65 4.16 11.95L11.8 28z"
+            />
+            <path
+              fill="#EA4335"
+              d="M24 46.5c5.94 0 10.9-1.94 14.5-5.27L30.88 35C29 36.15 26.7 36.75 24 36.75c-5.84 0-10.63-4.91-12.2-10.5L4.15 35.45C7.2 41.9 14.42 46.5 24 46.5z"
+            />
+          </svg>
+          Sign up with Google
+        </button>
+        <div class="signup-footer mt-3">
+          <p>Already have an account? <a href="/user/login">Login</a></p>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Password strength meter
+      const strengthMeter = document.getElementById("strengthMeter");
+      const passwordInput = document.getElementById("floatingPassword");
+
+      passwordInput.addEventListener("input", function () {
+        const weaknesses = calculatePasswordStrength(passwordInput.value);
+        let strength = 100;
+        weaknesses.forEach((weakness) => {
+          if (weakness == null) return;
+          strength -= weakness.deduction;
+        });
+        updateStrengthMeter(strength);
+      });
+
+      function updateStrengthMeter(strength) {
+        const meter = strengthMeter.firstElementChild;
+        if (strength <= 25) {
+          meter.className = "weak";
+        } else if (strength <= 50) {
+          meter.className = "medium";
+        } else if (strength <= 75) {
+          meter.className = "strong";
+        } else {
+          meter.className = "very-strong";
+        }
+      }
+
+      function calculatePasswordStrength(password) {
+        const weaknesses = [];
+        weaknesses.push(lengthWeakness(password));
+        weaknesses.push(lowercaseWeakness(password));
+        weaknesses.push(uppercaseWeakness(password));
+        weaknesses.push(numberWeakness(password));
+        weaknesses.push(specialCharactersWeakness(password));
+        return weaknesses;
+      }
+
+      function lengthWeakness(password) {
+        const length = password.length;
+        if (length < 5) {
+          return { message: "Your password is too short", deduction: 40 };
+        }
+        if (length < 10) {
+          return { message: "Your password could be longer", deduction: 15 };
+        }
+      }
+
+      function lowercaseWeakness(password) {
+        return characterTypeWeakness(
+          password,
+          /[a-z]/g,
+          "lowercase characters"
+        );
+      }
+
+      function uppercaseWeakness(password) {
+        return characterTypeWeakness(
+          password,
+          /[A-Z]/g,
+          "uppercase characters"
+        );
+      }
+
+      function numberWeakness(password) {
+        return characterTypeWeakness(password, /[0-9]/g, "numbers");
+      }
+
+      function specialCharactersWeakness(password) {
+        return characterTypeWeakness(
+          password,
+          /[^a-zA-Z0-9]/g,
+          "special characters"
+        );
+      }
+
+      function characterTypeWeakness(password, regex, type) {
+        const matches = password.match(regex) || [];
+        if (matches.length === 0) {
+          return { message: `Your password has no ${type}`, deduction: 20 };
+        }
+        if (matches.length <= 2) {
+          return {
+            message: `Your password could use more ${type}`,
+            deduction: 5,
+          };
+        }
+      }
+
+      // Toggle password visibility
+      function togglePassword(id) {
+        const passwordField = document.getElementById(id);
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+        } else {
+          passwordField.type = "password";
+        }
+      }
+
+      // Remove flash messages after 5 seconds
+      setTimeout(function () {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+          errorMessage.style.display = "none";
+        }
+        const successMessage = document.getElementById("success-message");
+        if (successMessage) {
+          successMessage.style.display = "none";
+        }
+
+        // Show animated success message and redirect to home
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("success")) {
+          const animatedMessage = document.getElementById("animatedMessage");
+          animatedMessage.style.display = "block";
+          setTimeout(function () {
+            window.location.href = "/user/home";
+          }, 1500);
+        }
+      }, 1500);
+    </script>
+  </body>
+</html>
